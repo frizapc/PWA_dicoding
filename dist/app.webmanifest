@@ -1,0 +1,22 @@
+{
+  "id": "restairant-pwa-1",
+  "name": "FoodHunter.org",
+  "short_name": "FoodHunter.org",
+  "description": "Your Reference Food",
+  "theme_color": "#ffdd95",
+  "background_color": "#EEEEEE",
+  "start_url": "index.html?launcher=true",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "icons/restaurant.ico",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "images/restaurant.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    }
+  ]
+}
