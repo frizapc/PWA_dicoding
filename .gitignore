@@ -1,5 +1,4 @@
 node_modules
-src
 tests
 babel.config.json
 jest.config.js
