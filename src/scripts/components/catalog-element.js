@@ -1,5 +1,6 @@
 import FetchAllData from "../data/fetchAll";
 import FetchDetailData from "../data/fetchDetail";
+import FetchFontAwesomeIcon from "../data/fetchFontAwesome";
 import FetchImageData from "../data/fetchImage";
 
 class CatalogElement extends HTMLElement {
@@ -44,7 +45,9 @@ class CatalogElement extends HTMLElement {
         const imageUrl = await FetchImageData(restaurant.pictureId);
         const containerImg = document.querySelector(`#img-${restaurant.id}`);
         containerImg.src = imageUrl;
+
         await this._cacheDataDetail(restaurant.id);
+        await this._cacheDataFontAwebsome();
       });
     } else {
       alert("Couldn't load sorry :( \nTry to refersh the page");
@@ -64,6 +67,10 @@ class CatalogElement extends HTMLElement {
 
   async _cacheDataDetail(id) {
     await FetchDetailData(id);
+  }
+
+  async _cacheDataFontAwebsome() {
+    await FetchFontAwesomeIcon();
   }
 }
 
