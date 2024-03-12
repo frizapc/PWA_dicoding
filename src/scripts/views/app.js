@@ -31,6 +31,13 @@ class App {
 
   _determinePageByRoute() {
     const url = UrlParser.urlParserCombiner();
+
+    const skipLinkElem = document.querySelector(".skip_link");
+    skipLinkElem.addEventListener("click", (event) => {
+      event.preventDefault();
+      document.querySelector("#mainContent").focus();
+    });
+
     if (!customElements.get("custom-content")) {
       const page = routes[url];
       customElements.define("custom-content", page);
