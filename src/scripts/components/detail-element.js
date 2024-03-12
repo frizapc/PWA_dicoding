@@ -1,6 +1,7 @@
 import FetchDetailData from "../data/fetchDetail";
 import UrlParser from "../routes/url-parser";
-import CONFIG from "../global/config";
+import FetchImageData from "../data/fetchImage";
+import LikeButtonInitiator from "../utils/like-button-initiator";
 
 class DetailElement extends HTMLElement {
   constructor() {
@@ -19,7 +20,20 @@ class DetailElement extends HTMLElement {
     const main = document.querySelector("main");
     const section = document.createElement("section");
     section.setAttribute("id", "detail");
+
+    const buttonlike = document.createElement("button");
+    buttonlike.setAttribute("id", "likeButton");
+    buttonlike.setAttribute("class", "like");
+    buttonlike.setAttribute("aria-label", "like restuarant");
+
+    const likeButtonContainer = document.createElement("div");
+    likeButtonContainer.setAttribute("id", "likeButtonContainer");
+    likeButtonContainer.append(buttonlike);
+
     main.append(section);
+    main.append(likeButtonContainer);
+
+    buttonlike.innerHTML = await this._initialtingLikeButton();
   }
 
   async _getDataRestaurant() {
@@ -40,6 +54,10 @@ class DetailElement extends HTMLElement {
 
     const section = document.querySelector("#detail");
     section.append(detailTitle);
+
+    const imageUrl = await FetchImageData(restaurant.pictureId);
+    const element = document.querySelector(`#img-${restaurant.id}`);
+    element.style.backgroundImage = `url('${imageUrl}')`;
   }
 
   async _descriptionPart() {
@@ -48,7 +66,7 @@ class DetailElement extends HTMLElement {
     const detailDescription = document.createElement("div");
     detailDescription.setAttribute("class", "detail_description");
     detailDescription.innerHTML = `
-    <div class="detail_image" style="background-image: url('${CONFIG.IMAGE_URL}${restaurant.pictureId}');">
+    <div class="detail_image" id="img-${restaurant.id}">
         <p>⭐${restaurant.rating}</p>
     </div>
     <div> 
@@ -116,6 +134,26 @@ class DetailElement extends HTMLElement {
 
     const section = document.querySelector("#detail");
     section.append(detailReviews);
+  }
+
+  async _initialtingLikeButton() {
+    const {
+      id,
+      name,
+      city,
+      rating,
+      pictureId,
+    } = await this._getDataRestaurant();
+
+    return LikeButtonInitiator.init({
+      restaurant: {
+        id,
+        name,
+        city,
+        rating,
+        pictureId,
+      },
+    });
   }
 }
 

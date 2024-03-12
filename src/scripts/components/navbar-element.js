@@ -13,7 +13,7 @@ class NavbarElement extends HTMLElement {
         </div>
         <div class="drawer">
           <a href="#">Home</a>
-          <a href="#">Favorite</a>
+          <a href="#favorite">Favorite</a>
           <a href="https://www.instagram.com/pipsqueek_0">About Us</a>
         </div>
         <div class="penawaran"><a href="#">Offers</a></div>
