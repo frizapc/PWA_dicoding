@@ -6,7 +6,12 @@ class ReviewElement extends HTMLElement {
   constructor() {
     super();
 
-    this._buildHTML();
+    this._generateElement();
+  }
+
+  async _generateElement() {
+    await this._buildHTML();
+    await this._eventForm();
   }
 
   async _buildHTML() {
@@ -19,7 +24,7 @@ class ReviewElement extends HTMLElement {
           <h3>Review to <span>${restaurant.name}</span> Resto</h3>
           <div></div>
         </div>
-        <form method="POST" action="${CONFIG.POST_REVIEW}">
+        <form id="postForm" >
           
           <input type="hidden" name="id" id="id" value="${restaurant.id}"/>
           <div>
@@ -27,19 +32,39 @@ class ReviewElement extends HTMLElement {
             <input type="text" name="name" id="name" />
           </div>
           <div>
-            <label for="review">Comment</label>
+            <label for="reviewField">Comment</label>
             <textarea
-              name="review"
-              id="review"
+              name="reviewField"
+              id="reviewField"
               rows="10"
             ></textarea>
-          </div>
-          <div>
-            <button type="submit">Submit</button>
-          </div>
-        </form>`;
+            </div>
+            <div>
+              <button class="postBtn">Submit</button>
+            </div>
+        </form>
+        `;
     section.innerHTML = content;
     main.append(section);
+  }
+
+  async _eventForm() {
+    const restaurant = await this._getDataRestaurant();
+    document
+      .querySelector(".postBtn")
+      .addEventListener("click", async (event) => {
+        const id = document.getElementById("id").value;
+        const name = document.getElementById("name").value;
+        const review = document.getElementById("reviewField").value;
+        const requestBody = { id, name, review };
+        fetch(CONFIG.POST_REVIEW, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody),
+        });
+      });
   }
 
   async _getDataRestaurant() {
