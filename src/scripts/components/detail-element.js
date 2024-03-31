@@ -24,7 +24,6 @@ class DetailElement extends HTMLElement {
     const buttonlike = document.createElement("button");
     buttonlike.setAttribute("id", "likeButton");
     buttonlike.setAttribute("class", "like");
-    buttonlike.setAttribute("aria-label", "like restuarant");
 
     const likeButtonContainer = document.createElement("div");
     likeButtonContainer.setAttribute("id", "likeButtonContainer");
@@ -32,8 +31,7 @@ class DetailElement extends HTMLElement {
 
     main.append(section);
     main.append(likeButtonContainer);
-
-    buttonlike.innerHTML = await this._initialtingLikeButton();
+    await this._initialtingLikeButton();
   }
 
   async _getDataRestaurant() {
@@ -57,7 +55,7 @@ class DetailElement extends HTMLElement {
 
     const imageUrl = await FetchImageData(restaurant.pictureId);
     const element = document.querySelector(`#img-${restaurant.id}`);
-    element.style.backgroundImage = `url('${imageUrl}')`;
+    // element.style.backgroundImage = `url('${imageUrl}')`;
   }
 
   async _descriptionPart() {
@@ -137,15 +135,13 @@ class DetailElement extends HTMLElement {
   }
 
   async _initialtingLikeButton() {
-    const {
-      id,
-      name,
-      city,
-      rating,
-      pictureId,
-    } = await this._getDataRestaurant();
+    const { id, name, city, rating, pictureId } =
+      await this._getDataRestaurant();
 
-    return LikeButtonInitiator.init({
+    const likeButton = document.querySelector("#likeButton");
+
+    LikeButtonInitiator.init({
+      likeButton,
       restaurant: {
         id,
         name,

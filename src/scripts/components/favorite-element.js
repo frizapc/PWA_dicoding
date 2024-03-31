@@ -46,7 +46,7 @@ class FavoriteElement extends HTMLElement {
   buildDataCard(restaurant) {
     return `<img id="img-${restaurant.id}" alt="${restaurant.name}">
                     <div> 
-                        <h4><a href="/#detail/${restaurant.id}">${restaurant.name}</a></h4>
+                        <h4><a class="link-detail" href="/#detail/${restaurant.id}">${restaurant.name}</a></h4>
                         <p>📍${restaurant.city}</p>
                         <p>⭐${restaurant.rating}</p>
                         <a class="btn-detail" href="#detail/${restaurant.id}">View More</a>

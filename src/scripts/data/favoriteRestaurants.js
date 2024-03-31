@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import { openDB } from "idb";
 import CONFIG from "../global/config";
 
@@ -11,12 +12,21 @@ const dbPromise = openDB(DATABASE_NAME, DATABASE_VERSION, {
 
 const FavoriteRestaurantIdb = {
   async getRestaurant(id) {
+    if (!id) {
+      return;
+    }
+
     return (await dbPromise).get(OBJECT_STORE_NAME, id);
   },
   async getAllRestaurants() {
     return (await dbPromise).getAll(OBJECT_STORE_NAME);
   },
   async putRestaurant(movie) {
+    // eslint-disable-next-line no-prototype-builtins
+    if (!movie.hasOwnProperty("id")) {
+      return;
+    }
+
     return (await dbPromise).put(OBJECT_STORE_NAME, movie);
   },
   async deleteRestaurant(id) {
