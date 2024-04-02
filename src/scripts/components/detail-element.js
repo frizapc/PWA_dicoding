@@ -55,7 +55,7 @@ class DetailElement extends HTMLElement {
 
     const imageUrl = await FetchImageData(restaurant.pictureId);
     const element = document.querySelector(`#img-${restaurant.id}`);
-    // element.style.backgroundImage = `url('${imageUrl}')`;
+    element.style.backgroundImage = `url('${imageUrl}')`;
   }
 
   async _descriptionPart() {

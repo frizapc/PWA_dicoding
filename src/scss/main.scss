@@ -104,7 +104,7 @@ nav {
 
 #jumbotron {
   width: 100%;
-  background-image: url(../public/images/heros/hero-image_2.jpg);
+  background-image: url(../public/images/sharp-img/hero-image_2-small.jpg);
   height: 20rem;
   background-size: cover;
   filter: brightness(80%);
@@ -726,5 +726,11 @@ footer {
         }
       }
     }
+  }
+}
+
+@media screen and (min-width: 480px) {
+  #jumbotron{
+    background-image: url(../public/images/sharp-img/hero-image_2-large.jpg);
   }
 }

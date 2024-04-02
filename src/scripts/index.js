@@ -2,6 +2,11 @@ import "regenerator-runtime";
 import "../scss/main.scss";
 import App from "./views/app";
 import swRegister from "./utils/sw-register";
+import "lazysizes";
+import "lazysizes/plugins/parent-fit/ls.parent-fit";
+
+const START = 3;
+const NUMBER_OF_IMAGES = 20;
 
 const app = new App();
 
